@@ -1,0 +1,11 @@
+POST http://localhost:5000/api/boards HTTP/1.1
+content-type: application/json
+
+{
+  "board": {
+    "title": "Web dev"
+  }
+}
+
+###
+GET http://localhost:5000/api/boards HTTP/1.1
