@@ -1,3 +1,4 @@
+### Add a new board
 POST http://localhost:5000/api/boards HTTP/1.1
 content-type: application/json
 
@@ -7,10 +8,10 @@ content-type: application/json
   }
 }
 
-###
+### Get all boards
 GET http://localhost:5000/api/boards HTTP/1.1
 
-###
+### Get one board by ID
 GET http://localhost:5000/api/boards/620e86d75c5d1d7dc0b1ca11 HTTP/1.1
 
 ### Invalid ID

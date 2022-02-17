@@ -26,13 +26,20 @@ const apiClient = {
       .then(callback)
       .catch(logError);
   },
+  getBoardById: function(boardId, callback) {
+    return axios
+      .get(routes.boardIndexUrl(boardId))
+      .then(unwrapData)
+      .then(callback)
+      .catch(logError);
+  },
   createBoard: function(board, callback) {
     return axios
       .post(routes.CREATE_BOARD_URL, {board})
       .then(unwrapData)
       .then(callback)
       .catch(logError);
-  }
+  },
 };
 
 export default apiClient;

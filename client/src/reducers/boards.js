@@ -1,11 +1,17 @@
+import * as actions from "../constants/ActionTypes";
+
 export default function boards(state = [], action) {
   switch (action.type) {
-    case "FETCH_BOARDS_SUCCESS": {
+    case actions.FETCH_BOARDS_SUCCESS: {
       return action.boards;
     }
-    case "CREATE_BOARD_SUCCESS": {
+    case actions.CREATE_BOARD_SUCCESS: {
       const newBoard = action.board;
       return state.concat(newBoard);
+    }
+    case actions.FETCH_BOARD_BY_ID_SUCCESS: {
+      const board = action.board;
+      return [board]; // THIS IS WRONG
     }
     default:
       return state;

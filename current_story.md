@@ -1,55 +1,56 @@
-## Overview
+# User can view lists and card summaries on the board home page
 
-- Refer to the docs to see the expected response of this API end-point
-- The response JSON is expected to contain:
-  The board is returned with the following nested data:
+## User Story
+
+As a user
+
+GIVEN:
+that a board has two lists
+the first list has two cards
+and the second list has three cards
+when i'm on the board show page
+
+SHOULD:
+I should see the board title
+I should see the titles of the lists
+Within the first list, I should see card summaries of the two cards
+Within the second list, I should see card summaries of the three cards
+
+- Seed the database with the following data: X
+
+  - A board X
+  - Two lists belonging to that board X
+  - Two cards in the first list, three in the second X
+
+- Start with `src/components/Application.jsx` and add a route for `/boards/:id` to its render method.
+
+## board component
+
+- The component `Board` that will be rendered in response to that route will be responsible for:
+
+  - parsing the URL for the id
+  - sending a request to `/api/boards/:id`
+  - dispatching an action to the store
+  - rendering the board.
+
+## Action creator
+
+- Create an action creator in `actions/BoardActions.js`.
+- This will return an async (functional) action you'll dispatch to the store from the `Board` component (inside useEffect).
+
+## Redux Store
+
+- The JSON response from the API is nested three levels deep but we want our store state to be flat like the following:
 
 ```
-{
-    //boardProperties...
-    ...
-    lists: [
-        {
-            //listProperties...
-            ...
-            cards: [
-                {
-                    //cardProperties...
-                    ...
-                }
-            ]
-        },
-        ...
-        {
-
-        }
-    ],
-}
-```
-
-The response status code is 200.
-
-- lists nested within the board and cards nested within the lists.
-
-## Mongoose Stuff
-
-- Create List and Card schema. x
-  Refer to the API docs to decide the attributes these schemas need at this point. Since `labels` is an array you can add it to the schema as written below:
-
-```
-labels: [
   {
-    type: String
+  boards: [{...}, {...}],
+  lists: [{...}, {...}, {...}],
+  cards: [{...}, {...}, {...}, {...}, {}]
   }
-]
 ```
 
-- Establish the necessary association between Board, List, and Card model. x
+## Lists and Cards Reducers
 
-## API & Controller Stuff
-
-- Add a new `get` route to `/boards/:id`.x
-- Add a new `getBoard` function inside of the `boardsController.js` file.x
-- Within the `getBoard` function you will use `populate` method to replace the specified paths in the document with the document(s) from other collection(s). You can read more about it [here](https://mongoosejs.com/docs/populate.html).x
-- Handle the error when the board with the specified id doesn't exist.
-- If you want to test your api response in a browser, make sure to change the port number to `5000` and use a url like `/api/boards/:id`.x
+- You'll need to create the lists and cards reducers and handle the `BOARD_FETCHED` action in each one, extracting the relevant data out of it.
+- That allows us to create an`ExistingLists` component where we can query the store for the lists belonging to a particular board.
