@@ -24,8 +24,15 @@ const getBoardById = (req, res, next) => {
       }
     })
     .then((board) => {
-      res.json({ board });
-    });
+      if (board === null) {
+        next(new HttpError("Board not found", 404))
+      } else {
+        res.json({ board });
+      }
+    })
+    .catch((err) =>
+      next(new HttpError("Server errror, please try again", 500))
+    );
 };
 
 const createBoard = (req, res, next) => {

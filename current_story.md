@@ -48,8 +48,8 @@ labels: [
 
 ## API & Controller Stuff
 
-- Add a new `get` route to `/boards/:id`.
-- Add a new `getBoard` function inside of the `boardsController.js` file.
-- Within the `getBoard` function you will use `populate` method to replace the specified paths in the document with the document(s) from other collection(s). You can read more about it [here](https://mongoosejs.com/docs/populate.html).
+- Add a new `get` route to `/boards/:id`.x
+- Add a new `getBoard` function inside of the `boardsController.js` file.x
+- Within the `getBoard` function you will use `populate` method to replace the specified paths in the document with the document(s) from other collection(s). You can read more about it [here](https://mongoosejs.com/docs/populate.html).x
 - Handle the error when the board with the specified id doesn't exist.
-- If you want to test your api response in a browser, make sure to change the port number to `5000` and use a url like `/api/boards/:id`.
+- If you want to test your api response in a browser, make sure to change the port number to `5000` and use a url like `/api/boards/:id`.x
