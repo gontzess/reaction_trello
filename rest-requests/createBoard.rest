@@ -9,3 +9,6 @@ content-type: application/json
 
 ###
 GET http://localhost:5000/api/boards HTTP/1.1
+
+###
+GET http://localhost:5000/api/boards/620e86d75c5d1d7dc0b1ca11 HTTP/1.1

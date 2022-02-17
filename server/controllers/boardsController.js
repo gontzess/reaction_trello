@@ -1,4 +1,6 @@
 const Board = require("../models/board");
+const Card = require("../models/card");
+const List = require("../models/list");
 const HttpError = require("../models/httpError");
 const { validationResult } = require("express-validator");
 const { param } = require("../routes/api");
@@ -12,13 +14,19 @@ const getBoards = (req, res, next) => {
   });
 };
 
-// const getBoardById = (req, res, next) => {
-//   const id = req.params.id;
-//   Board.findById(id, FIELDS).then((board) => {
-//     res.json({
-//       board,
-//     });
-// };
+const getBoardById = (req, res, next) => {
+  const id = req.params.id;
+  Board.findById(id)
+    .populate({
+      path: 'lists',
+      populate: {
+        path: 'cards',
+      }
+    })
+    .then((board) => {
+      res.json({ board });
+    });
+};
 
 const createBoard = (req, res, next) => {
   const errors = validationResult(req);
@@ -39,3 +47,4 @@ const createBoard = (req, res, next) => {
 
 exports.getBoards = getBoards;
 exports.createBoard = createBoard;
+exports.getBoardById = getBoardById;
