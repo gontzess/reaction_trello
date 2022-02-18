@@ -30,8 +30,8 @@ Within the second list, I should see card summaries of the three cards
 
   - parsing the URL for the id X
   - sending a request to `/api/boards/:id` X
-  - dispatching an action to the store
-  - rendering the board.
+  - dispatching an action to the store X
+  - rendering the board. X
 
 ## Action creator
 
