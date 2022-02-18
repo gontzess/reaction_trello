@@ -1,63 +1,79 @@
-# User can view lists and card summaries on the board home page
+- Add POST route
+- Add PUT route
+- Add list contoller
+- CreateList function
+- UpdateList function
 
-## User Story
+## 1.6. POST /api/lists
 
-As a user
+Creates a list.
 
-GIVEN:
-that a board has two lists
-the first list has two cards
-and the second list has three cards
-when i'm on the board show page
+### 1.6.1. Expected Payload
 
-SHOULD:
-I should see the board title
-I should see the titles of the lists
-Within the first list, I should see card summaries of the two cards
-Within the second list, I should see card summaries of the three cards
+NOTE: The `boardId` where the list will reside is required.
 
-- Seed the database with the following data: X
-
-  - A board X
-  - Two lists belonging to that board X
-  - Two cards in the first list, three in the second X
-
-- Start with `src/components/Application.jsx` and add a route for `/boards/:id` to its render method. X
-
-## board component
-
-- The component `Board` that will be rendered in response to that route will be responsible for:
-
-  - parsing the URL for the id X
-  - sending a request to `/api/boards/:id` X
-  - dispatching an action to the store X
-  - rendering the board. X
-
-## Action creator
-
-- Create an action creator in `actions/BoardActions.js`.
-- This will return an async (functional) action you'll dispatch to the store from the `Board` component (inside useEffect).
-
-## Redux Store
-
-- The JSON response from the API is nested three levels deep but we want our store state to be flat like the following:
-
-```
-  {
-  boards: [{...}, {...}],
-  lists: [{...}, {...}, {...}],
-  cards: [{...}, {...}, {...}, {...}, {}]
+```json
+{
+  "boardId": 1,
+  "list": {
+    "title": "My list"
   }
+}
 ```
 
-## Lists and Cards Reducers
+### 1.6.2. Successful Response
 
-- You'll need to create the lists and cards reducers and handle the `BOARD_FETCHED` action in each one, extracting the relevant data out of it.
-- That allows us to create an `ExistingLists` component where we can query the store for the lists belonging to a particular board.
+The list is returned in JSON form with a 201 status code.
 
-Board:
+#### 1.6.2.1. Example Response
 
-- board header deets
-- existing lists
-  - list
-    - card
+```json
+{
+  "_id": 10,
+  "title": "My list",
+  "boardId": 1,
+  "createdAt": "2020-10-06T23:40:26.606Z",
+  "updatedAt": "2020-10-06T23:40:26.606Z",
+  "position": 65535.0
+}
+```
+
+### 1.6.4. Error Response
+
+If a board with the provided `boardId` doesn’t exist, an error will be returned with a 404 status code. If no title is provided, an error is returned with a 422 “Unprocessable Entity” status code.
+
+## 1.7. PUT/PATCH /api/lists/:id
+
+Update a list.
+
+### 1.7.1. Expected Payload
+
+Any combination of `title` and `position` can be provided. The only requirement is that at least one must be provided.
+
+```json
+{
+  "title": "Updated title",
+  "position": 137882
+}
+```
+
+### 1.7.2. Successful Response
+
+The list is returned in JSON form with a 200 status code.
+
+#### 1.7.2.1. Example Response
+
+```json
+{
+  "_id": 1,
+  "title": "Updated title",
+  "position": 137882.0,
+  "boardId": 1,
+  "createdAt": "2020-10-04T05:57:07.222Z",
+  "updatedAt": "2020-10-06T23:48:44.540Z"
+}
+```
+
+### 1.7.2. Error Response
+
+If a list with the provided `_id` doesn’t exist, an error will be returned with a 404 status code. If no title or position is provided, an error is returned with a 422 “Unprocessable Entity” status code.

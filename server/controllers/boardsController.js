@@ -3,7 +3,6 @@ const Card = require("../models/card");
 const List = require("../models/list");
 const HttpError = require("../models/httpError");
 const { validationResult } = require("express-validator");
-const { param } = require("../routes/api");
 const FIELDS = "title _id createdAt updatedAt";
 
 const getBoards = (req, res, next) => {

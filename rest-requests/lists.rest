@@ -1,0 +1,12 @@
+### Add a new list
+POST http://localhost:5000/api/lists HTTP/1.1
+content-type: application/json
+
+{
+  "boardId": "620e86d75c5d1d7dc0b1ca11",
+  "list": {
+    "title": "New list"
+  }
+}
+
+###
