@@ -1,15 +1,11 @@
-
-const Card = (props) => {
+const Card = ({card}) => {
   return (
     <div className="card-background">
       <div className="card ">
         <i className="edit-toggle edit-icon sm-icon"></i>
         <div className="card-info">
           <div className="card-label green colorblindable"></div>
-          <p>
-            Cards do many cool things. Click on this card to
-            open it and learn more...
-          </p>
+          <p>{card.title}</p>
         </div>
         <div className="card-icons">
           <i className="clock-icon sm-icon overdue-recent completed">

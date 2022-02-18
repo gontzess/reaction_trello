@@ -8,17 +8,17 @@ const Board = () => {
   const boardId = useParams().id;
   const dispatch = useDispatch();
   const board = useSelector((state) => state.boards).find(board => (board._id === boardId));
-  const lists = useSelector((state) => state.lists);
-  const cards = useSelector((state) => state.cards);
+  // const lists = useSelector((state) => state.lists);
+  // const cards = useSelector((state) => state.cards);
 
   useEffect(() => {
     dispatch(actions.fetchBoardById(boardId));
   }, [dispatch, boardId]);
 
-  useEffect(() => {
-    console.log(lists);
-    console.log(cards);
-  }, [board])
+  // useEffect(() => {
+  //   console.log(lists);
+  //   console.log(cards);
+  // }, [board])
 
   if (!board) { return null; }
 
