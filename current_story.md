@@ -54,3 +54,10 @@ Within the second list, I should see card summaries of the three cards
 
 - You'll need to create the lists and cards reducers and handle the `BOARD_FETCHED` action in each one, extracting the relevant data out of it.
 - That allows us to create an `ExistingLists` component where we can query the store for the lists belonging to a particular board.
+
+Board:
+
+- board header deets
+- existing lists
+  - list
+    - card
