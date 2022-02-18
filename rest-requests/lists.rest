@@ -9,4 +9,13 @@ content-type: application/json
   }
 }
 
-###
+### Add a bad list with no title
+POST http://localhost:5000/api/lists HTTP/1.1
+content-type: application/json
+
+{
+  "boardId": "620e86d75c5d1d7dc0b1ca11",
+  "list": {
+    "title": ""
+  }
+}
