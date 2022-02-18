@@ -9,7 +9,7 @@ export default function boards(state = [], action) {
       const newBoard = action.board;
       return state.concat(newBoard);
     }
-    case actions.FETCH_BOARD_BY_ID_SUCCESS: {
+    case actions.FETCH_BOARD_SUCCESS: {
       const board = action.board;
       return [board]; // THIS IS WRONG
     }

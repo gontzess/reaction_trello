@@ -8,13 +8,19 @@ const Board = () => {
   const boardId = useParams().id;
   const dispatch = useDispatch();
   const board = useSelector((state) => state.boards).find(board => (board._id === boardId));
+  const lists = useSelector((state) => state.lists);
+  const cards = useSelector((state) => state.cards);
 
   useEffect(() => {
-    dispatch(actions.fetchBoardById(boardId))
+    dispatch(actions.fetchBoardById(boardId));
   }, [dispatch, boardId]);
 
+  useEffect(() => {
+    console.log(lists);
+    console.log(cards);
+  }, [board])
+
   if (!board) { return null; }
-  console.log(board)
 
   return (
     <>
@@ -39,7 +45,7 @@ const Board = () => {
                 <div className="list">
                   <a className="more-icon sm-icon" href=""></a>
                   <div>
-                    <p className="list-title">Stuff to try (this is a list)</p>
+                    <p className="list-title">{lists[0].title}</p>
                   </div>
                   <div className="add-dropdown add-top">
                     <div className="card"></div>
