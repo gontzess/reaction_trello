@@ -1,19 +1,27 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import * as actions from "../../actions/BoardActions";
-import ExistingLists from "../ExistingLists";
+import * as actions from "./../actions/BoardActions";
+import ExistingLists from "./ExistingLists";
 
 const Board = () => {
   const boardId = useParams().id;
   const dispatch = useDispatch();
   const board = useSelector((state) => state.boards).find(board => (board._id === boardId));
+  const [addListVisible, setAddListVisible] = useState(false);
 
   useEffect(() => {
     dispatch(actions.fetchBoardById(boardId));
   }, [dispatch, boardId]);
 
   if (!board) { return null; }
+  
+  const toggleNewListVisible = (event) => {
+    event.preventDefault();
+    setAddListVisible(!addListVisible);
+    event.target.classList.toggle('visible');
+    // do we need state then?
+  }
 
   return (
     <>
@@ -33,7 +41,7 @@ const Board = () => {
       <main>
         <div id="list-container" className="list-container">
           <ExistingLists />
-          <div id="new-list" className="new-list">
+          <div id="new-list" className="new-list" onClick={toggleNewListVisible}>
             <span>Add a list...</span>
             <input type="text" placeholder="Add a list..." />
             <div>
