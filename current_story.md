@@ -1,8 +1,8 @@
 - Add POST route x
-- Add PUT route
-- Add list controller
-- CreateList function
-- UpdateList function
+- Add PUT route x
+- Add list controller x
+- CreateList function x
+- UpdateList function x
 
 ## 1.6. POST /api/lists
 

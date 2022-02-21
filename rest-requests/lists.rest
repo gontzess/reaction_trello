@@ -62,3 +62,11 @@ content-type: application/json
   "title": "Updated title",
   "somethingelse": "stuff"
 }
+
+### Put returns 404 is list id is bad
+PUT http://localhost:5000/api/lists/6213e237d416c8d402c665a6 HTTP/1.1
+content-type: application/json
+
+{
+  "title": "Bad list id"
+}
