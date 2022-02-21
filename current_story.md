@@ -1,6 +1,6 @@
-- Add POST route
+- Add POST route x
 - Add PUT route
-- Add list contoller
+- Add list controller
 - CreateList function
 - UpdateList function
 

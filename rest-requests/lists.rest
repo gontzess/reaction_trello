@@ -19,3 +19,46 @@ content-type: application/json
     "title": ""
   }
 }
+
+### Does not add a list with invalid board id
+POST http://localhost:5000/api/lists HTTP/1.1
+content-type: application/json
+
+{
+  "boardId": "620e86d75c5d1d7dc0b1ca12",
+  "list": {
+    "title": "BAD Board"
+  }
+}
+
+### List updates with a put request for title
+PUT http://localhost:5000/api/lists/6213e237d416c8d402c665a7 HTTP/1.1
+content-type: application/json
+
+{
+  "title": "Updated title"
+}
+
+### List updates with a put request for bad inputs
+PUT http://localhost:5000/api/lists/6213e237d416c8d402c665a7 HTTP/1.1
+content-type: application/json
+
+{
+  "tile": "Updated title again, NOTTT"
+}
+
+### List updates with a put request for bad inputs
+PUT http://localhost:5000/api/lists/6213e237d416c8d402c665a7 HTTP/1.1
+content-type: application/json
+
+{
+  "title": ""
+}
+### List updates with a put request for title
+PUT http://localhost:5000/api/lists/6213e237d416c8d402c665a7 HTTP/1.1
+content-type: application/json
+
+{
+  "title": "Updated title",
+  "somethingelse": "stuff"
+}
