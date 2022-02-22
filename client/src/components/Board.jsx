@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import * as actions from "./../actions/BoardActions";
+import * as boardActions from "./../actions/BoardActions";
+import * as listActions from "./../actions/ListActions";
 import ExistingLists from "./ExistingLists";
 
 const Board = () => {
@@ -12,7 +13,7 @@ const Board = () => {
   const [newListTitle, setNewListTitle] = useState("");
 
   useEffect(() => {
-    dispatch(actions.fetchBoardById(boardId));
+    dispatch(boardActions.fetchBoardById(boardId));
   }, [dispatch, boardId]);
 
   if (!board) { return null; }
@@ -33,8 +34,7 @@ const Board = () => {
   const handleNewListSubmit = (event) => {
     event.preventDefault();
     if (newListTitle === "") { return; }
-    console.log("DISPATCH NEW LIST: ", newListTitle);
-    closeNewListForm(event);
+    dispatch(listActions.createList(newListTitle, boardId, () => closeNewListForm(event)));
   }
   
   const newListClass = () => {

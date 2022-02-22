@@ -9,7 +9,9 @@ export default function lists(state = [], action) {
       })
       return listsNoCards;
     }
-      
+    case actions.CREATE_LIST_SUCCESS: {
+      return state.concat(action.list)
+    }
     default:
       return state;
   }
