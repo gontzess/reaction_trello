@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import * as boardActions from "./../actions/BoardActions";
@@ -11,17 +11,23 @@ const Board = () => {
   const board = useSelector((state) => state.boards).find(board => (board._id === boardId));
   const [addListSelected, setAddListSelected] = useState(false);
   const [newListTitle, setNewListTitle] = useState("");
+  const inputRef = useRef();
 
   useEffect(() => {
     dispatch(boardActions.fetchBoardById(boardId));
   }, [dispatch, boardId]);
 
+  useEffect(() => {
+    if (addListSelected) {
+      inputRef.current.focus();
+    }
+  }, [addListSelected]);
+
   if (!board) { return null; }
-  
+
   const openNewListForm = (event) => {
     event.preventDefault();
     setAddListSelected(true);
-    // focus the input element
   }
   
   const closeNewListForm = (event) => {
@@ -61,9 +67,20 @@ const Board = () => {
           <ExistingLists />
           <div id="new-list" className={newListClass()} onClick={openNewListForm}>
             <span>Add a list...</span>
-            <input type="text" placeholder="Add a list..." onChange={(e) => setNewListTitle(e.target.value)} value={newListTitle} />
+            <input
+              type="text"
+              placeholder="Add a list..."
+              onChange={(e) => setNewListTitle(e.target.value)}
+              value={newListTitle}
+              ref={inputRef}
+            />
             <div>
-              <input type="submit" className="button" value="Save" onClick={handleNewListSubmit}/>
+              <input
+                type="submit"
+                className="button"
+                value="Save"
+                onClick={handleNewListSubmit}
+              />
               <i className="x-icon icon" onClick={closeNewListForm}></i>
             </div>
           </div>

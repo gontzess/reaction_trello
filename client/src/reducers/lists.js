@@ -10,7 +10,10 @@ export default function lists(state = [], action) {
       return listsNoCards;
     }
     case actions.CREATE_LIST_SUCCESS: {
-      return state.concat(action.list)
+      return state.concat(action.list);
+    }
+    case actions.UPDATE_LIST_SUCCESS: {
+      return state.map(list => action.list._id === list._id ? action.list : list);
     }
     default:
       return state;
