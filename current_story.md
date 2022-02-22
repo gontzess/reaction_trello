@@ -16,3 +16,11 @@ Fill the field with new list title and CLICK "Save"
 -> "Add a list" button after the last list
 
 Note: if the input is an empty string, the form doesn't disappear when we click the "Save" button.
+
+Toggle:
+
+- if not selected, when click any of the element/sub elements
+  - set as selected, so that it opens up
+- if selected, aka its open, only want to close it when when click save or X.
+
+open, close, save

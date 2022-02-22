@@ -8,7 +8,8 @@ const Board = () => {
   const boardId = useParams().id;
   const dispatch = useDispatch();
   const board = useSelector((state) => state.boards).find(board => (board._id === boardId));
-  const [addListVisible, setAddListVisible] = useState(false);
+  const [addListSelected, setAddListSelected] = useState(false);
+  const [newListTitle, setNewListTitle] = useState("");
 
   useEffect(() => {
     dispatch(actions.fetchBoardById(boardId));
@@ -16,11 +17,28 @@ const Board = () => {
 
   if (!board) { return null; }
   
-  const toggleNewListVisible = (event) => {
+  const openNewListForm = (event) => {
     event.preventDefault();
-    setAddListVisible(!addListVisible);
-    event.target.classList.toggle('visible');
-    // do we need state then?
+    setAddListSelected(true);
+    // focus the input element
+  }
+  
+  const closeNewListForm = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    setAddListSelected(false);
+    setNewListTitle("");
+  }
+  
+  const handleNewListSubmit = (event) => {
+    event.preventDefault();
+    if (newListTitle === "") { return; }
+    console.log("DISPATCH NEW LIST: ", newListTitle);
+    closeNewListForm(event);
+  }
+  
+  const newListClass = () => {
+    return addListSelected ? 'new-list selected' : 'new-list';
   }
 
   return (
@@ -41,12 +59,12 @@ const Board = () => {
       <main>
         <div id="list-container" className="list-container">
           <ExistingLists />
-          <div id="new-list" className="new-list" onClick={toggleNewListVisible}>
+          <div id="new-list" className={newListClass()} onClick={openNewListForm}>
             <span>Add a list...</span>
-            <input type="text" placeholder="Add a list..." />
+            <input type="text" placeholder="Add a list..." onChange={(e) => setNewListTitle(e.target.value)} value={newListTitle} />
             <div>
-              <input type="submit" className="button" value="Save" />
-              <i className="x-icon icon"></i>
+              <input type="submit" className="button" value="Save" onClick={handleNewListSubmit}/>
+              <i className="x-icon icon" onClick={closeNewListForm}></i>
             </div>
           </div>
         </div>
