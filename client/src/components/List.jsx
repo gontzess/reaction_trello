@@ -5,11 +5,10 @@ import { createCard } from '../actions/CardActions';
 
 import Card from './Card';
 
-const List = ({list}) => {
+const List = ({list, isAddingCard, toggleAddingCard}) => {
   const cards = useSelector(state => state.cards).filter(card => card.listId === list._id);
-  const [isEditing, setIsEditing] = useState(false);
+  const [isEditingTitle, setIsEditingTitle] = useState(false);
   const [listTitle, setListTitle] = useState(list.title);
-  const [isAddingCard, setIsAddingCard] = useState(false);
   const [newCardInfo, setNewCardInfo] = useState("");
   const addCardRef = useRef(null);
   const dispatch = useDispatch();
@@ -23,23 +22,23 @@ const List = ({list}) => {
   const handleTitleUpdate = (event) => {
     event.preventDefault();
     if (listTitle === list.title || listTitle === '') {
-      setIsEditing(false);
+      setIsEditingTitle(false);
       setListTitle(list.title);
     } else {
-      dispatch(updateListTitle(list._id, listTitle, () => setIsEditing(false)));
+      dispatch(updateListTitle(list._id, listTitle, () => setIsEditingTitle(false)));
     }
   };
   
   const openAddCard = (event) => {
     event.preventDefault();
-    setIsAddingCard(true);
+    toggleAddingCard();
   };
 
   const closeAddCard = (event) => {
     event.preventDefault();
     event.stopPropagation();
     setNewCardInfo("");
-    setIsAddingCard(false);
+    toggleAddingCard();
   };
   
   const handleAddCardSubmit = (event) => {
@@ -54,7 +53,7 @@ const List = ({list}) => {
         <div className="list">
           <a className="more-icon sm-icon" href=""></a>
           <div>
-            { isEditing ? (
+            { isEditingTitle ? (
               <input
                 type="text"
                 className="list-title"
@@ -65,7 +64,7 @@ const List = ({list}) => {
                 autoFocus={true}
               />
             ) : (
-              <p className="list-title" onClick={() => setIsEditing(true)}>{list.title}</p>
+              <p className="list-title" onClick={() => setIsEditingTitle(true)}>{list.title}</p>
             )}
           </div>
           <div className="add-dropdown add-top">
