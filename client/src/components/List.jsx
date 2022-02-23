@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateListTitle } from '../actions/ListActions';
+import { createCard } from '../actions/CardActions';
 
 import Card from './Card';
 
@@ -44,9 +45,7 @@ const List = ({list}) => {
   const handleAddCardSubmit = (event) => {
     event.preventDefault();
     if (newCardInfo === "") { return; }
-    // dispatch(listActions.createList(newCardInfo, boardId, () => closeNewListForm(event)));
-    console.log(newCardInfo);
-    closeAddCard(event);
+    dispatch(createCard(list._id, newCardInfo, () => closeAddCard(event)));
   };
   
   return (
