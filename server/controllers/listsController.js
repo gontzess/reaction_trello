@@ -54,10 +54,40 @@ const updateList = (req, res, next) => {
 
 };
 
+const checkForList = (req, res, next) => {
+  const listId = req.body.listId;
+  List.findById(listId)
+    .then(list => {
+      if (list) {
+        res.locals.cardData = { ...req.body.card, listId, boardId: list.boardId }
+        next();
+      } else {
+        next(new HttpError("List not found", 404));
+      }
+    })
+    .catch(err => {
+      next(new HttpError("Adding card to list failed, please try again", 500));
+    });
+};
+
+const addCardToList = (req, res, next) => {
+  const { listId, _id: cardId }= res.locals.card;
+
+  List.findByIdAndUpdate(listId, {$push: {"cards": cardId}}, {new: true})
+    .then(() => {
+      next();
+    })
+    .catch(err => {
+      next(new HttpError("Adding card to list failed, please try again", 500));
+    });
+};
+
 const listResponse = (req, res, next) => {
   res.json(res.locals.list);
 };
 
 exports.createList = createList;
 exports.listResponse = listResponse;
+exports.addCardToList = addCardToList;
 exports.updateList = updateList;
+exports.checkForList = checkForList;

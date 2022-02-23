@@ -1,0 +1,13 @@
+### Get a card
+GET http://localhost:5000/api/cards/620e870a6dcc179b61bcbcec HTTP/1.1
+
+### 
+POST http://localhost:5000/api/cards HTTP/1.1
+content-type: application/json
+
+{
+  "listId": "62151ba983bc943d669df11d",
+  "card": {
+    "title": "Test card"
+  }
+}

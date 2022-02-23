@@ -6,3 +6,4 @@ exports.validateUpdateList = [oneOf([
   check("title").not().isEmpty(),
   check("position").not().isEmpty()
 ])];
+exports.validateCard = [check("card.title").not().isEmpty()];
