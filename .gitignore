@@ -4,4 +4,6 @@ npm-debug.log
 .env/
 .env
 .DS_Store
-./current_story.md
+current_story.md
+.eslintrc.js
+

@@ -11,7 +11,7 @@ const Board = () => {
   const board = useSelector((state) => state.boards).find(board => (board._id === boardId));
   const [addListSelected, setAddListSelected] = useState(false);
   const [newListTitle, setNewListTitle] = useState("");
-  const inputRef = useRef();
+  const inputRef = useRef(null);
 
   useEffect(() => {
     dispatch(boardActions.fetchBoardById(boardId));
@@ -28,24 +28,24 @@ const Board = () => {
   const openNewListForm = (event) => {
     event.preventDefault();
     setAddListSelected(true);
-  }
+  };
   
   const closeNewListForm = (event) => {
     event.preventDefault();
     event.stopPropagation();
     setAddListSelected(false);
     setNewListTitle("");
-  }
+  };
   
   const handleNewListSubmit = (event) => {
     event.preventDefault();
     if (newListTitle === "") { return; }
     dispatch(listActions.createList(newListTitle, boardId, () => closeNewListForm(event)));
-  }
+  };
   
   const newListClass = () => {
     return addListSelected ? 'new-list selected' : 'new-list';
-  }
+  };
 
   return (
     <>
