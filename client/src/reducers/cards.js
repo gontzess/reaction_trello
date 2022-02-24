@@ -5,10 +5,11 @@ export default function cards(state = [], action) {
     case actions.FETCH_BOARD_SUCCESS: {
       let cardCollection = [];
       action.board.lists.forEach(list => {
-        const { cards } = list;
+        const cards = list.cards.filter(c => !state.find(stateCard => stateCard._id === c._id))
         cardCollection.push(...cards);
       })
-      return cardCollection;
+
+      return state.concat(cardCollection);
     }
     case actions.CREATE_CARD_SUCCESS: {
       return state.concat(action.card);
