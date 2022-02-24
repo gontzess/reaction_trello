@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { updateListTitle } from '../actions/ListActions';
 import { createCard } from '../actions/CardActions';
 
@@ -76,7 +77,11 @@ const List = ({list, isAddingCard, toggleAddingCard}) => {
             </div>
           </div>
           <div id="cards-container" data-id="list-1-cards">
-            {cards.map(card => <Card key={card._id} card={card}/>)}
+            {cards.map(card => (
+              <Link key={card._id} to={`/cards/${card._id}`}>
+                <Card card={card}/>
+              </Link>
+            ))}
           </div>
           <div className={isAddingCard ? "add-dropdown add-bottom active-card" : "add-dropdown add-bottom"} > 
             <div className="card">

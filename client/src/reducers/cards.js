@@ -13,6 +13,23 @@ export default function cards(state = [], action) {
     case actions.CREATE_CARD_SUCCESS: {
       return state.concat(action.card);
     }
+    case actions.FETCH_CARD_SUCCESS: {
+      let found = false;
+      let newCards = state.map(card => {
+        if (card._id === action.card._id) {
+          found = true;
+          return action.card;
+        } else {
+          return card;
+        }
+      })
+
+      if (!found) {
+        newCards.push(action.card)
+      }
+      
+      return newCards;
+    }
     default:
       return state;
   }

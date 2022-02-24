@@ -10,3 +10,7 @@ export const updateListUrl = function(listId) {
 export const boardIndexUrl = function(boardId) {
   return `/api/boards/${boardId}`;
 };
+
+export const cardIndexUrl = function(cardId) {
+  return `/api/cards/${cardId}`;
+};

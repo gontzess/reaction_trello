@@ -3,19 +3,44 @@ import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import * as boardActions from "./../actions/BoardActions";
 import * as listActions from "./../actions/ListActions";
+import * as cardActions from "./../actions/CardActions";
 import ExistingLists from "./ExistingLists";
 
-const Board = () => {
-  const boardId = useParams().id;
+const Board = ({ location }) => {
   const dispatch = useDispatch();
-  const board = useSelector((state) => state.boards).find(board => (board._id === boardId));
   const [addListSelected, setAddListSelected] = useState(false);
   const [newListTitle, setNewListTitle] = useState("");
   const inputRef = useRef(null);
+  const showingCard = location.pathname.includes('cards');
+  const boards = useSelector(state => state.boards);
+  const cards = useSelector(state => state.cards);
+  let card, board, cardId, boardId;
+
+  if (showingCard) {
+    cardId = useParams().id;
+    card = cards.find(card => card._id === cardId);
+    if (card) {
+      boardId = card.boardId;
+    }
+  } else {
+    boardId = useParams().id;
+  }
+
+  if (boardId) {
+    board = boards.find(board => board._id === boardId);
+  }
 
   useEffect(() => {
-    dispatch(boardActions.fetchBoardById(boardId));
+    if (boardId) {
+      dispatch(boardActions.fetchBoardById(boardId));
+    }
   }, [dispatch, boardId]);
+  
+  useEffect(() => {
+    if (cardId) {
+      dispatch(cardActions.fetchCardById(cardId));
+    }
+  }, [dispatch, cardId]);
 
   useEffect(() => {
     if (addListSelected) {
@@ -170,7 +195,6 @@ const Board = () => {
           </div>
         </div>
       </div>
-      <div id="modal-container"></div>
       <div id="dropdown-container"></div>
     </>
   );

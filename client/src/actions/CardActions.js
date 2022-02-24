@@ -5,6 +5,10 @@ export function createCardSuccess(card) {
   return { type: types.CREATE_CARD_SUCCESS, card: card };
 }
 
+export function fetchCardSuccess(card) {
+  return { type: types.FETCH_CARD_SUCCESS, card: card }
+}
+
 export function createCard(listId, title, cleanup) {
   return function(dispatch) {
     apiClient.createCard(listId, title, (data) => {
@@ -17,14 +21,14 @@ export function createCard(listId, title, cleanup) {
   };
 }
 
-// export function updateListTitle(listId, title, cleanup) {
-//   return function(dispatch) {
-//     apiClient.updateList(listId, {title}, (data) => {
-//       dispatch(updateListSuccess(data));
+export function fetchCardById(cardId, cleanup) {
+  return function(dispatch) {
+    apiClient.getCardById(cardId, (data) => {
+      dispatch(fetchCardSuccess(data));
 
-//       if (cleanup) {
-//         cleanup();
-//       }
-//     });
-//   };
-// }
+      if (cleanup) {
+        cleanup();
+      }
+    });
+  };
+}
