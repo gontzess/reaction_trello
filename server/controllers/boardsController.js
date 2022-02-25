@@ -38,6 +38,7 @@ const createBoard = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     next(new HttpError("Board title is required", 422));
+    return;
   }
 
   Board.create(req.body.board)

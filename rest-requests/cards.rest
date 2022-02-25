@@ -22,3 +22,14 @@ content-type: application/json
     "description": "This is our new and improved card Schema",
   }
 }
+
+### 
+POST http://localhost:5000/api/comments HTTP/1.1
+content-type: application/json
+
+{
+  "cardId": "62190464e4f6f854bfb490f9",
+  "comment": {
+    "text": "This is a comment text"
+  }
+}

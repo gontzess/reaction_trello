@@ -6,12 +6,21 @@ const hasOneOf = fields => {
 }
 
 exports.validateBoard = [check("board.title").not().isEmpty()];
+
 exports.validateList = [check("list.title").not().isEmpty()];
+
 exports.validateUpdateList = hasOneOf([
   "title",
   "position"
 ]);
+
+exports.validateComment = [
+  check("cardId").not().isEmpty(),
+  check("comment.text").not().isEmpty()
+];
+
 exports.validateCard = [check("card.title").not().isEmpty()];
+
 exports.validateUpdateCard = hasOneOf([
   "card.title",
   "card.listId",

@@ -8,7 +8,8 @@ const createList = (req, res, next) => {
   const errors = validationResult(req);
   const listReq = { ...req.body.list, boardId: req.body.boardId };
   if (!errors.isEmpty()) {
-    return next(new HttpError("The input field is empty.", 422));
+    next(new HttpError("The input field is empty.", 422));
+    return;
   }
 
   List.create(listReq)
@@ -30,7 +31,8 @@ const createList = (req, res, next) => {
 const updateList = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return next(new HttpError("Title or position is required.", 422));
+    next(new HttpError("Title or position is required.", 422));
+    return;
   }
   
   const id = req.params.id;
@@ -66,7 +68,7 @@ const checkForList = (req, res, next) => {
 };
 
 const addCardToList = (req, res, next) => {
-  const { listId, _id: cardId }= res.locals.card;
+  const { listId, _id: cardId } = res.locals.card;
 
   List.findByIdAndUpdate(listId, {$push: {"cards": cardId}}, {new: true})
     .then(() => {
