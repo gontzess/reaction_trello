@@ -1,12 +1,17 @@
 import React, {useEffect} from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import DueDate from "./DueDate";
 
 const CardModal = () => {
   const cardId = useParams().id;
   const card = useSelector(state => state.cards).find(card => card._id === cardId);
+  const lists = useSelector(state => state.lists);
   
   if (!card) { return null; }
+ 
+  const list = lists.find(list => list._id === card.listId);
+  const listTitle = list?.title;
   
   return (
     <div id="modal-container">
@@ -19,7 +24,7 @@ const CardModal = () => {
             {card.title}
           </textarea>
           <p>
-            in list <a className="link">Stuff to try (this is a list)</a>
+            in list <a className="link" href={`/boards/${card.boardId}`}>{listTitle}</a>
             <i className="sub-icon sm-icon"></i>
           </p>
         </header>
@@ -51,18 +56,7 @@ const CardModal = () => {
                     <i className="plus-icon sm-icon"></i>
                   </div>
                 </li>
-                <li className="due-date-section">
-                  <h3>Due Date</h3>
-                  <div id="dueDateDisplay" className="overdue completed">
-                    <input
-                      id="dueDateCheckbox"
-                      type="checkbox"
-                      className="checkbox"
-                      checked=""
-                    />
-                    Aug 4 at 10:42 AM <span>(past due)</span>
-                  </div>
-                </li>
+                { card.dueDate && <DueDate dateString={card.dueDate} /> }
               </ul>
               <form className="description">
                 <p>Description</p>
