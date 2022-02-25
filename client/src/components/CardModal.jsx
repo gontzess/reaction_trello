@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import DueDate from "./DueDate";
 
 const CardModal = () => {
@@ -17,14 +17,16 @@ const CardModal = () => {
     <div id="modal-container">
       <div className="screen"></div>
       <div id="modal">
-        <i className="x-icon icon close-modal"></i>
+        <Link to={`/boards/${card.boardId}`}>
+          <i className="x-icon icon close-modal"></i>
+        </Link>
         <header>
           <i className="card-icon icon .close-modal"></i>
           <textarea className="list-title" style={{ height: "45px" }}>
             {card.title}
           </textarea>
           <p>
-            in list <a className="link" href={`/boards/${card.boardId}`}>{listTitle}</a>
+            in list <Link className="link" to={`/boards/${card.boardId}`}>{listTitle}</Link>
             <i className="sub-icon sm-icon"></i>
           </p>
         </header>
@@ -64,7 +66,7 @@ const CardModal = () => {
                   Edit
                 </span>
                 <p className="textarea-overlay">
-                  Cards have a symbol to indicate if they contain a description.
+                  {card.description}
                 </p>
                 <p id="description-edit-options" className="hidden">
                   You have unsaved edits on this field.{" "}
