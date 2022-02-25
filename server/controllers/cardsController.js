@@ -1,7 +1,6 @@
 const Card = require("../models/card");
 const HttpError = require("../models/httpError");
 const { validationResult } = require("express-validator");
-const { request } = require("express");
 
 const getCardById = (req, res, next) => {
   const id = req.params.id;
@@ -36,10 +35,30 @@ const createCard = (req, res, next) => {
     );
 };
 
+const updateCard = (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    next(new HttpError("At least one of the required fields was not provided", 422));
+  }
+  
+  const id = req.params.id;
+  
+  Card.findByIdAndUpdate(id, req.body.card, {new: true})
+    .then(card => {
+      if (!card) {
+        next(new HttpError("Card not found", 404));
+      }
+      res.locals.card = card;
+      next();
+    });
+};
+
 const cardResponse = (req, res, next) => {
   res.json(res.locals.card);
 };
 
+
 exports.getCardById = getCardById;
 exports.createCard = createCard;
 exports.cardResponse = cardResponse;
+exports.updateCard = updateCard;

@@ -36,7 +36,8 @@ PUT http://localhost:5000/api/lists/6213e237d416c8d402c665a7 HTTP/1.1
 content-type: application/json
 
 {
-  "title": "Updated title"
+  "title": "Updated title 2",
+  "extra": "extra"
 }
 
 ### List updates with a put request for bad inputs

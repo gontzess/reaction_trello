@@ -26,24 +26,3 @@ const CardSchema = new Schema({
 const Card = mongoose.model('Card', CardSchema);
 
 module.exports = Card;
-
-
-//  stories: [{ type: Schema.Types.ObjectId, ref: 'Story' }]
-
-// {
-//   "_id": 9,
-//   "title": "My new card",
-//   "description": "",
-//   "labels": [],
-//   "listId": 13,              // references list ObjectID
-//   "position": 65535.0,       // ADD
-//   "archived": false,
-//   "createdAt": "2020-10-08T17:54:55.285Z",
-//   "updatedAt": "2020-10-08T17:54:55.285Z",
-//   "dueDate": null,
-//   "completed": false,
-//   "boardId": 1,              // references board ObjectID
-//   "comments": [],            // ADD
-//   "actions": [],             // ADD
-//   "commentsCount": 0         // ADD
-// }

@@ -28,19 +28,14 @@ const createList = (req, res, next) => {
 };
 
 const updateList = (req, res, next) => {
-  const id = req.params.id;
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return next(new HttpError("Title or position is required.", 422));
   }
   
-  const listUpdates = Object.assign(
-    {},
-    req.body.title === undefined ? null : {title: req.body.title},
-    req.body.position === undefined ? null : {position: req.body.position}
-  );
+  const id = req.params.id;
 
-  List.findByIdAndUpdate(id, listUpdates, {new: true})
+  List.findByIdAndUpdate(id, req.body, {new: true})
     .then(list => {
       if (!list) {
         next(new HttpError("List not found", 404));

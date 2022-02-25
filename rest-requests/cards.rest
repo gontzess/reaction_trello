@@ -9,11 +9,16 @@ content-type: application/json
   "listId": "62151ba983bc943d669df11c",
   "card": {
     "title": "New and Improved",
+  }
+}
+
+###
+PUT http://localhost:5000/api/cards/620e870a6dcc179b61bcbcec HTTP/1.1
+content-type: application/json
+
+{
+  "card": {
+    "title": "Updated Title Again",
     "description": "This is our new and improved card Schema",
-    "labels": [],
-    "position": 65535.0,
-    "archived": false,
-    "dueDate": "2022-02-28T17:54:55.285Z",
-    "completed": false
   }
 }
