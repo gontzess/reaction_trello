@@ -6,8 +6,14 @@ POST http://localhost:5000/api/cards HTTP/1.1
 content-type: application/json
 
 {
-  "listId": "62151ba983bc943d669df11d",
+  "listId": "62151ba983bc943d669df11c",
   "card": {
-    "title": "Test card"
+    "title": "New and Improved",
+    "description": "This is our new and improved card Schema",
+    "labels": [],
+    "position": 65535.0,
+    "archived": false,
+    "dueDate": "2022-02-28T17:54:55.285Z",
+    "completed": false
   }
 }
